@@ -72,8 +72,8 @@ public class Main {
         printAdjustedSalary(employees, increaseInSalaryInPercent);
         insertSeparator();
         int department = 5;
-        System.out.println("Ниже приведена информация по отделу " + department + "\n");
         Employee[] departmentEmployees = generateDepartmentEmployees(employees, department);
+        System.out.println("Ниже приведена информация по отделу " + department + "\n");
         printListOfDepartmentEmployees(departmentEmployees);
         int minSalaryByDepartment = findMinimumSalary(departmentEmployees);
         printEmployeeWithMinimumSalaryInDepartment(departmentEmployees, minSalaryByDepartment);
@@ -160,6 +160,9 @@ public class Main {
     }
 
     public static void printAdjustedSalary(Employee[] employees, int increase) {
+        if (increase < 1 || increase > 100) {
+            throw new IllegalArgumentException("Введено некорректное значение <индексация зарплаты>: " + increase);
+        }
         System.out.printf("Полный перечень всех сотрудников с указанием зарплаты, проиндексированной на %d %%:\n",
                 increase);
         for (Employee employee : employees) {
@@ -170,6 +173,9 @@ public class Main {
     }
 
     public static Employee[] generateDepartmentEmployees(Employee[] employees, int department) {
+        if (department < 1 || department > 5) {
+            throw new IllegalArgumentException("Введено некорректное значение <отдел>: " + department);
+        }
         int size = 0;
         for (Employee employee : employees) {
             if (employee.getDepartment() == department) {
